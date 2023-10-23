@@ -15,20 +15,21 @@ const UserLogin = () => {
   };
 
   const handleSubmit = (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const hardcodedCredentials = {
-    email: 'test@example.com',
-    password: 'password123',
+    // Load existing users from localStorage
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+
+    // Check if there's a user with matching credentials
+    const user = users.find(u => u.email === formData.email && u.password === formData.password);
+
+    if (user) {
+      alert('Login successful!');
+      navigate('/');
+    } else {
+      alert('Invalid email or password. Please try again.');
+    }
   };
-
-  if (formData.email === hardcodedCredentials.email && formData.password === hardcodedCredentials.password) {
-    alert('Login successful!');
-    navigate('/')
-  } else {
-    alert('Invalid email or password. Please try again.');
-  }
-};
   
 
   return (
